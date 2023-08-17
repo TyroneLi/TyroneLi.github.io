@@ -54,6 +54,15 @@
 	z-index: 1;
 }
 
+.container_txt {
+	display: flex;
+	justify-content: center;
+  }
+  
+  .container_txt p_txt {
+	text-align: left;
+  }
+
 a.anchor {
 	display: block; 
 	position: relative; 
