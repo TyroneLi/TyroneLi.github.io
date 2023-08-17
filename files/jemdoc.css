@@ -57,11 +57,11 @@
 .container_txt {
 	display: flex;
 	justify-content: center;
-  }
+}
   
-  .container_txt p_txt {
+.container_txt p_txt {
 	text-align: left;
-  }
+}
 
 a.anchor {
 	display: block; 
