@@ -289,6 +289,19 @@
             Matterport3D benchmark, while K = 40, 80, 160, is K most common categories from the NYU label set provided in the benchmark.
           </p>
         </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/linear_probing_seg_results.png">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Experimental results on ScanNetV2 and Matterport in
+            terms of val on linear probing evaluation. Upperbound-full sup.
+            denotes the fully-supervised upperbounding results while Baseline
+            init. means initialize the model from our baseline model and then
+            perform linear probing evaluation.
+          </p>
+        </div>
       </div>
     </div>
   <!-- </div> -->
@@ -328,6 +341,30 @@
               </figure>
               <figure>
                 <img src="./static/visualization/zero_shot_seg_vis.png">
+                <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
+                  superior performance over the OpenScene, which is regarded as
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              </figure>
+              <figure class="active">
+                <img src="./static/visualization/cluster_vis_scannet.png">
+                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
+                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+              </figure>
+              <figure class="active">
+                <img src="./static/visualization/cluster_vis_matterport.png">
+                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
+                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/zero_shot_seg_vis_scannet.png">
+                <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
+                  superior performance over the OpenScene, which is regarded as
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/zero_shot_seg_vis_matterport.png">
                 <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
                   superior performance over the OpenScene, which is regarded as
                   our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
