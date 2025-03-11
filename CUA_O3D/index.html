@@ -114,16 +114,16 @@
             <span class="author-block"><sup>2</sup>Fondazione Bruno Kessler.</span>
             <br>
           </div>
-          <div class="is-size-6 publication-authors">
+          <!-- <div class="is-size-6 publication-authors">
             <span class="author-block">(<sup>*</sup>Equal contribution.
             <sup><span>&#8224;</span></sup>Corresponding authors.
             )</span>
-          </div>
+          </div> -->
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- Arxiv Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2412.07689"
+                <a href="https://tyroneli.github.io/CUA_O3D/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -157,12 +157,18 @@
       <div class="column is-five-fifths">
         <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
         <div class="teaser">
-          <img src="./static/images/overview.png"  width="1200" height="1200">
+          <img src="./static/images/overview.png"  width="800" height="800">
         </div>
         <p><br/></p>  
         <div class="content has-text-justified">
           <p>
-            <b>Left</b>: DriveMM outperforms all specific SOTA models and other general large multimodal models across all 6 datasets comprising 13 tasks; <b>Right</b>: In zero-shot learning on unseen dataset, DriveMM demonstrates stronger generalization ability compared to specialist models trained on individual datasets.
+            <b>Left</b>: op is feature distribution analysis of different 2d projected feature embeddings from various foundation models (Lseg,
+            DINOv2 and Stable Diffusion), enumerating on the overall Scan-
+            NetV2 train set and counting the frequency of all point features
+            belonging to each 2D model within each bin interval. Bottom is
+            the sample utilizing K-Means to cluster projected 3D features into
+            specified clusters to make segmentation comparisons. Different
+            foundation models illustrate heterogeneous yet complementary results.
           </p>
         </div>
       </div>
@@ -250,22 +256,24 @@
         </div>
         <div class="content has-text-justified">
         <p>
-        We compare with state-of-the-art specialist models,
-				commercial models and open-source large multimodal models across diverse autonomous driving valuation
-				benchmarks spanning multiple modalities.
-				<sup>†</sup>Specialist models correspond to the performance of six different models.
-				<sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0).
+          Open-vocabulary 3D semantic segmentation results. We
+          compare our CUA-O3D with recent fully supervised (Fully-sup.)
+          and zero-shot (Zero-shot) baselines. Our method demonstrates
+          competitive performance on both ScanNetV2 and Matterport3D. †
+          denotes results from origin paper based on Lseg.
+				<sup>†</sup>denotes results from origin paper based on Lseg.
+				<!-- <sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0). -->
         </p>
         </div>
         <hr>
-        <div class="teaser">
+        <!-- <div class="teaser">
           <img src="./static/images/zero_shot_seg_results.png">
         </div>
         <div class="content has-text-justified">
           <p>
           Specialists are fine-tuned on a single dataset, whereas DriveMM is fine-tuned on all datasets.
           </p>
-          </div>
+          </div> -->
       </div>
     </div>
   <!-- </div> -->
@@ -298,14 +306,14 @@
           <div class="chat-history">
             <article class="media">
               <figure class="active">
-                <img src="./static/visualization/codalm1.png">
+                <img src="./static/images/cluster.png">
                 <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
               </figure>
               <figure>
-                <img src="./static/visualization/codalm2.png">
+                <img src="./static/images/zero_shot_seg_vis.png">
                 <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
               </figure>
-              <figure>
+              <!-- <figure>
                 <img src="./static/visualization/codalm3.png">
                 <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
               </figure>
@@ -352,7 +360,7 @@
               <figure>
                 <img src="./static/visualization/bddx2.png">
                 <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
+              </figure> -->
 
               <!-- <img src="./static/visualization/codalm1.png" class="active">
               <img src="./static/visualization/codalm2.png">
@@ -382,11 +390,11 @@
 <section class="section" id="BibTeX" >
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{huang2024drivemm,
+    <pre><code>@article{li2025cross,
   title={Cross-Modal and Uncertainty-Aware Agglomeration for Open-Vocabulary 3D Scene Understanding},
   author={Jinlong Li, Cristiano Saltori, Fabio Poiesi, Nicu Sebe},
-  journal={arXiv preprint arXiv:2412.07689},
-  year={2024}
+  <!-- journal={arXiv preprint arXiv:2412.07689}, -->
+  year={2025}
 }</code></pre>
   </div>
 </section>
@@ -420,7 +428,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="https://arxiv.org/abs/2412.07689">
+         href="https://tyroneli.github.io/CUA_O3D/">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="https://github.com/TyroneLi/CUA_O3D" class="external-link" disabled>
