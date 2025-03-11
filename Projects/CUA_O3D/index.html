@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Cross-Modal and Uncertainty-Aware Agglomeration for Open-Vocabulary 3D Scene Understanding">
+  <meta name="keywords" content="DriveMM, Autonomous Driving, Large Multimodal Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cross-Modal and Uncertainty-Aware Agglomeration for Open-Vocabulary 3D Scene Understanding</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/academicons.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icons/emova.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://kit.fontawesome.com/d3915a16e2.js" crossorigin="anonymous"></script>
+</head>
+
+	<!-- <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history img {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history img.active {
+			display: block;
+		}
+	</style> -->
+  	
+  <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history figure {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history figure.active {
+			display: block;
+		}
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+    
+	</style>
+  
+<body>
+
+
+  
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><b>CUA-O3D:</b>  </h1>
+          <h3 class="title is-3 publication-title"> Cross-Modal and Uncertainty-Aware Agglomeration for Open-Vocabulary 3D Scene Understanding </h3>
+          <!-- <h2 class="title is-3 publication-title"> with Vivid Emotions   </h2> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zhijian11.github.io/">Jinlong Li</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://fcjian.github.io/">Cristiano Saltori</a><sup>2*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com.hk/citations?user=gO4divAAAAAJ&hl=zh-CN&oi=sra">Fabio Poiesi</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="http://forestlinma.com/">Nicu Sebe</a><sup>2&#8224</sup>,</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Trento,</span>
+            <span class="author-block"><sup>2</sup>Fondazione Bruno Kessler.</span>
+            <br>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">(<sup>*</sup>Equal contribution.
+            <sup><span>&#8224;</span></sup>Corresponding authors.
+            )</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Arxiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.07689"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zhijian11/DriveMM"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="margin-top: -100px;">
+  <!-- <div class="container pt-5 mt-0 shadow p-5 mb-0 bg-white rounded" style="width: 80%;"> -->
+  <div class="container" style="width: 80%;">
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
+        <div class="teaser">
+          <img src="./static/images/overview.png"  width="1200" height="1200">
+        </div>
+        <p><br/></p>  
+        <div class="content has-text-justified">
+          <p>
+            <b>Left</b>: DriveMM outperforms all specific SOTA models and other general large multimodal models across all 6 datasets comprising 13 tasks; <b>Right</b>: In zero-shot learning on unseen dataset, DriveMM demonstrates stronger generalization ability compared to specialist models trained on individual datasets.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  </div>
+</section>
+
+<section class="section" style="background-color: #f1f1f1;">
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered" style="width: 65%; margin: 0 auto;">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The lack of a large-scale 3D-text corpus has led recent
+            works to distill open-vocabulary knowledge from vision-
+            language models (VLMs). However, these methods typi-
+            cally rely on a single VLM to align the feature spaces of
+            3D models within a common language space, which limits
+            the potential of 3D models to leverage the diverse spatial
+            and semantic capabilities encapsulated in various founda-
+            tion models. In this paper, we propose Cross-modal and
+            Uncertainty-aware Agglomeration for Open-vocabulary 3D
+            Scene Understanding dubbed CUA-O3D, the first model to
+            integrate multiple foundation models—such as CLIP, Di-
+            nov2, and Stable Diffusion—into 3D scene understanding.
+            We further introduce a deterministic uncertainty estima-
+            tion to adaptively distill and harmonize the heterogeneous
+            2D feature embeddings from these models. Our method
+            addresses two key challenges: (1) incorporating seman-
+            tic priors from VLMs alongside the geometric knowledge
+            of spatially-aware vision foundation models, and (2) us-
+            ing a novel deterministic uncertainty estimation to capture
+            model-specific uncertainties across diverse semantic and
+            geometric sensitivities, helping to reconcile heterogeneous
+            representations during training. Extensive experiments on
+            ScanNetV2 and Matterport3D demonstrate that our method
+            not only advances open-vocabulary segmentation but also
+            achieves robust cross-domain alignment and competitive
+            spatial perception capabilities. 
+          </p> 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  <!-- </div> -->
+</section>
+
+
+<section class="section">
+  <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">End-to-end DriveMM Architecture</h2>
+        <div class="teaser">
+          <img src="./static/images/method.png"  width="1200" height="1200">
+        </div>
+        <p><br/></p>  
+        <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
+          <p>
+            Overview of CUA-O3D. We first utilize Lseg, DINOv2 and Stable Diffusion model to extract multi-view posed image embeddings
+            and then use multi-view 3D projection to obtain the projected 3D features F 2D
+            i to supervise the 3D model training. Three MLP layers are
+            established to map with each 2D model supervisions independently, while a specific noisy scalar prediction σi through a deterministic
+            uncertainty estimation will be learned and adopted to adaptively weight the corresponding distillation loss L.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section" >
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+        <div class="columns is-centered has-text-centered" style="width: 50%; margin: 0 auto;">
+          <div class="column is-five-fifths">
+            <h2 class="title is-3">General Performance & Generalization Ability</h2>
+        <div class="teaser">
+          <img src="./static/images/zero_shot_seg_results.png">
+        </div>
+        <div class="content has-text-justified">
+        <p>
+        We compare with state-of-the-art specialist models,
+				commercial models and open-source large multimodal models across diverse autonomous driving valuation
+				benchmarks spanning multiple modalities.
+				<sup>†</sup>Specialist models correspond to the performance of six different models.
+				<sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0).
+        </p>
+        </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/zero_shot_seg_results.png">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+          Specialists are fine-tuned on a single dataset, whereas DriveMM is fine-tuned on all datasets.
+          </p>
+          </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Visualizations</h2>
+    </div>
+  </div>
+  <div class="container mt-0">
+    <div class="form-row" style="justify-content: center;">
+      <div class="form-group col-md-1">
+        <!-- <div class="col-md-0" style="width: 100%"><label>&nbsp;</label></div> -->
+        <div class="btn-group" role="group" aria-label="Left and Right Controller"
+          style="width: 100%;align-items: flex-end;justify-content: center;flex-direction: row;display: flex;">
+          <button type="button" class="form-control btn btn-primary" id="prev-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_left</i></button>
+          <button type="button" class="form-control btn btn-primary" id="next-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_right</i></button>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <div class="card mb-4" style="width: 70%; display: flex; align-items: center;">
+        <div class="card-body" id="selected-question" style="display: flex; height: 100vh;">
+          <div class="chat-history">
+            <article class="media">
+              <figure class="active">
+                <img src="./static/visualization/codalm1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/codalm2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/codalm3.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/maplm1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/drivelm1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/drivelm2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/omnidrive1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/omnidrive2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct3.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct4.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/bddx1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/bddx2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+
+              <!-- <img src="./static/visualization/codalm1.png" class="active">
+              <img src="./static/visualization/codalm2.png">
+              <img src="./static/visualization/codalm3.png">
+							<img src="./static/visualization/maplm1.png">
+							<img src="./static/visualization/drivelm1.png">
+							<img src="./static/visualization/drivelm2.png">
+							<img src="./static/visualization/lingoqa1.png">
+							<img src="./static/visualization/lingoqa2.png">
+							<img src="./static/visualization/omnidrive1.png">
+							<img src="./static/visualization/omnidrive2.png">
+							<img src="./static/visualization/nuinstruct1.png">
+							<img src="./static/visualization/nuinstruct2.png">
+							<img src="./static/visualization/nuinstruct3.png">
+							<img src="./static/visualization/nuinstruct4.png">
+							<img src="./static/visualization/bddx1.png">
+							<img src="./static/visualization/bddx2.png"> -->
+						</article>
+            <!-- Add your chat messages here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" >
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{huang2024drivemm,
+  title={DriveMM: All-in-One Large Multimodal Model for Autonomous Driving},
+  author={Huang, Zhijian and Fen, Chengjian and Yan, Feng and Xiao, Baihui and Jie, Zequn and Zhong, Yujie and Liang, Xiaodan and Ma, Lin},
+  journal={arXiv preprint arXiv:2412.07689},
+  year={2024}
+}</code></pre>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const images = document.querySelectorAll('.chat-history figure');
+    let currentIndex = 0;
+
+    document.getElementById('prev-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+      images[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('next-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+      images[currentIndex].classList.add('active');
+    });
+  });
+</script>
+
+
+<footer class="footer" style="background-color: #f1f1f1;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2412.07689">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/zhijian11/DriveMM" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <center>The website template was adapted from <a href="https://nerfies.github.io/">Nerfies</a>.<br/>
+          @ CUA_O3D Team
+          </center>
+        <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
