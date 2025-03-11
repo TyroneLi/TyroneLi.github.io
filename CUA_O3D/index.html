@@ -267,14 +267,28 @@
         </p>
         </div>
         <hr>
-        <!-- <div class="teaser">
-          <img src="./static/images/zero_shot_seg_results.png">
+        <div class="teaser">
+          <img src="./static/images/cross_validation_results.png">
         </div>
         <div class="content has-text-justified">
           <p>
-          Specialists are fine-tuned on a single dataset, whereas DriveMM is fine-tuned on all datasets.
+            Cross-dataset evaluation. We evaluate the cross-dataset
+            generalization capability of CUA-O3D. We perform this experi-
+            ment when training on ScanNetV2 and evaluating on Matterport3D
+            (ScanNetV2 → Matterport3D), and vice versa.
           </p>
-          </div> -->
+        </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/cross_eval_matterport_results.png">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Comparison on cross-dataset generalization. Both CUA-O3D and OpenScene are trained on ScanNet, and zero-shot tested on
+            the Matterport3D dataset. ‡ denotes the pure 3D results obtained from the official released model. K = 21 is derived from the original
+            Matterport3D benchmark, while K = 40, 80, 160, is K most common categories from the NYU label set provided in the benchmark.
+          </p>
+        </div>
       </div>
     </div>
   <!-- </div> -->
@@ -310,14 +324,13 @@
                 <img src="./static/visualization/cluster_vis.png">
                 <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
                   final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
-                  one to visualize the structural characteristics. <span style="color: white;">White</span> rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
               </figure>
               <figure>
                 <img src="./static/visualization/zero_shot_seg_vis.png">
-                <figcaption><sup> Open-vocabulary semantic segmentation comparisons
-                  in terms of ScanNetV2 and Matterport. Our approach displays
+                <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
                   superior performance over the OpenScene, which is regarded as
-                  our baseline. Best view zoom in and out. <span style="color: red;">red</span>.</sup></figcaption> denotes the significant improvements.
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
               </figure>
               <!-- <figure>
                 <img src="./static/visualization/codalm3.png">
