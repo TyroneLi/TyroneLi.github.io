@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="utf-8">
   <meta name="description"
         content="Cross-Modal and Uncertainty-Aware Agglomeration for Open-Vocabulary 3D Scene Understanding">
@@ -33,6 +34,12 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
   <script src="https://kit.fontawesome.com/d3915a16e2.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
 </head>
 
 	<!-- <style>
@@ -228,16 +235,16 @@
       <div class="column is-five-fifths">
         <h2 class="title is-3">Overview of CUA-O3D</h2>
         <div class="teaser">
-          <img src="./static/images/method.png"  width="1200" height="1200">
+          <img src="./static/images/method.png"  width="1000" height="1000">
         </div>
         <p><br/></p>  
         <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
           <p>
             We first utilize Lseg, DINOv2 and Stable Diffusion model to extract multi-view posed image embeddings
-            and then use multi-view 3D projection to obtain the projected 3D features F 2D
-            i to supervise the 3D model training. Three MLP layers are
-            established to map with each 2D model supervisions independently, while a specific noisy scalar prediction σi through a deterministic
-            uncertainty estimation will be learned and adopted to adaptively weight the corresponding distillation loss L.
+            and then use multi-view 3D projection to obtain the projected 3D features \( F^{2D}_i \) to supervise 
+            the 3D model training. Three MLP layers are established to map with each 2D model 
+            supervisions independently, while a specific noisy scalar prediction \( \sigma_i \) through a deterministic
+            uncertainty estimation will be learned and adopted to adaptively weight the corresponding distillation loss \( L \).
           </p>
         </div>
       </div>
