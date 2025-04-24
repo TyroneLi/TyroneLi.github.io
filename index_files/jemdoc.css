@@ -21,15 +21,15 @@ body {
   color: #000;
   background-color: #ffffff; 
   text-align:left; /* for IE */
-  margin-top: 30px; 
-  margin-bottom: 30px;
+  margin-top: 20px; 
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   padding-left:  20px;
   padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 30px;
-  max-width: 1600px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: 2000px;
 }
 
 #layout-menu {
@@ -140,7 +140,7 @@ h1, h2, h3 {
 	margin-top: 0.7em;
 	margin-bottom: 0.5em;
 	padding-bottom: 0.2em;
-	line-height: 1.0;
+	line-height: 2.0;
 	padding-top: 0.5em;
 	border-bottom: 1px solid #aaaaaa;
 }
