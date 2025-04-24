@@ -25,11 +25,11 @@ body {
   margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
-  padding-left:  50px;
-  padding-right: 50px;
+  padding-left:  20px;
+  padding-right: 20px;
   padding-top: 10px;
   padding-bottom: 30px;
-  max-width: 960px;
+  max-width: 1600px;
 }
 
 #layout-menu {
@@ -365,6 +365,8 @@ tr.heading {
 }
 
 img {
+	max-width: 100%;
+  	height: auto;
     border: none;
 }
 
