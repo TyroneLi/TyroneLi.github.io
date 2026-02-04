@@ -168,19 +168,17 @@
       <div class="column is-five-fifths">
         <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
         <div class="teaser">
-          <img src="./static/images/overview_new.png"  width="800" height="800">
+          <img src="./static/images/AOT_motivation.png"  width="800" height="800">
         </div>
         <p><br/></p>  
         <div class="content has-text-justified">
           <p>
-            Top is feature distribution analysis of different 2d 
-            projected feature embeddings from various foundation models (Lseg,
-            DINOv2 and Stable Diffusion), enumerating on the overall ScanNetV2 
-            train set and counting the frequency of all point features
-            belonging to each 2D model within each bin interval. Bottom is
-            the sample utilizing K-Means to cluster projected 3D features into
-            specified clusters to make segmentation comparisons. Different
-            foundation models illustrate heterogeneous yet complementary results.
+            The top is the essential differences compared with common token reduction methods, 
+            instead of simply removing unimportant or merging very similar tokens, ours utilizes 
+            a global optimization strategy to further exploit and aggregate necessary semantic 
+            and context from these onto the remaining tokens. Bottom
+            is our proposed pipeline to adopt Optimal Transport to aggregate
+            information within intra- and inter-frame levels for video tokens.
           </p>
         </div>
       </div>
@@ -197,31 +195,31 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            The lack of a large-scale 3D-text corpus has led recent
-            works to distill open-vocabulary knowledge from vision-language models (VLMs). 
-            However, these methods typically rely on a single VLM to align the feature spaces of
-            3D models within a common language space, which limits
-            the potential of 3D models to leverage the diverse spatial
-            and semantic capabilities encapsulated in various foundation
-            models. In this paper, we propose Cross-modal and
-            Uncertainty-aware Agglomeration for Open-vocabulary 3D
-            Scene Understanding dubbed CUA-O3D, the first model to
-            integrate multiple foundation models—such as CLIP, DINOv2, 
-            and Stable Diffusion—into 3D scene understanding.
-            We further introduce a deterministic uncertainty estimation 
-            to adaptively distill and harmonize the heterogeneous
-            2D feature embeddings from these models. Our method
-            addresses two key challenges: (1) incorporating semantic 
-            priors from VLMs alongside the geometric knowledge
-            of spatially-aware vision foundation models, and (2) using a 
-            novel deterministic uncertainty estimation to capture
-            model-specific uncertainties across diverse semantic and
-            geometric sensitivities, helping to reconcile heterogeneous
-            representations during training. Extensive experiments on
-            ScanNetV2 and Matterport3D demonstrate that our method
-            not only advances open-vocabulary segmentation but also
-            achieves robust cross-domain alignment and competitive
-            spatial perception capabilities. 
+            Video Large Language Models (VLLMs) demonstrate
+            strong video understanding but suffer from inefficiency due
+            to redundant visual tokens. Existing pruning primary targets 
+            intra-frame spatial redundancy or prunes inside the
+            LLM with shallow-layer overhead, yielding suboptimal spatiotemporal 
+            reduction and underutilizing long-context compressibility. 
+            All of them often discard subtle yet informative
+            context from merged or pruned tokens. In this paper, we
+            propose a new perspective that elaborates token Anchors
+            within intra-frame and inter-frame to comprehensively aggregate 
+            the informative contexts via local-global Optimal
+            Transport (AOT). Specifically, we first establish local- and
+            global-aware token anchors within each frame under the attention 
+            guidance, which then optimal transport aggregates
+            the informative contexts from pruned tokens, constructing
+            intra-frame token anchors. Then, building on the temporal frame 
+            clips, the first frame within each clip will be considered as the 
+            keyframe anchors to ensemble similar information from 
+            consecutive frames through optimal transport,
+            while keeping distinct tokens to represent temporal dynamics, 
+            leading to efficient token reduction in a training-free
+            manner. Extensive evaluations show that our proposed AOT
+            obtains competitive performances across various short- and
+            long-video benchmarks on leading video LLMs, obtaining
+            substantial computational efficiency while preserving temporal and visual fidelity.
           </p> 
           </p>
         </div>
@@ -239,16 +237,16 @@
       <div class="column is-five-fifths">
         <h2 class="title is-3">Overview of CUA-O3D</h2>
         <div class="teaser">
-          <img src="./static/images/method.png"  width="1100" height="1100">
+          <img src="./static/images/AOT_pipeline.png"  width="1100" height="1100">
         </div>
         <p><br/></p>  
         <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
           <p>
-            We first utilize Lseg, DINOv2 and Stable Diffusion model to extract multi-view posed image embeddings
-            and then use multi-view 3D projection to obtain the projected 3D features \( F^{2D}_i \) to supervise 
-            the 3D model training. Three MLP layers are established to map with each 2D model 
-            supervisions independently, while a specific noisy scalar prediction \( \sigma_i \) through a deterministic
-            uncertainty estimation will be learned and adopted to adaptively weight the corresponding distillation loss \( L \).
+            Overall pipeline of our AOT. Our method compresses tokens of video LLMs across spatiotemporal through optimal transport,
+          first establishing token anchors within each frame to cover semantically important and spatially diverse token candidates, then utilizing
+          optimal transport to aggregate the necessary informative cues within Intra-Frame at phase I, and finally shifting the optimization strategy
+          into temporal within Inter-Frame at phase II. The proposed AOT preserves both temporal and visual integrity by utilizing efficient 
+          SinkhornKnopp Iteration to solve the optimal transport plan assignment.
           </p>
         </div>
       </div>
@@ -263,53 +261,45 @@
           <div class="column is-five-fifths">
             <h2 class="title is-3">General Performance & Generalization Ability</h2>
         <div class="teaser">
-          <img src="./static/images/zero_shot_seg_results.png" width="800" height="1000">
+          <img src="./static/images/AOT_LLaVAOneVision7B.png" width="800" height="1000">
         </div>
         <div class="content has-text-justified">
         <p>
-          Open-vocabulary 3D semantic segmentation results. We
-          compare our CUA-O3D with recent fully supervised (Fully-sup.)
-          and zero-shot (Zero-shot) baselines. Our method demonstrates
-          competitive performance on both ScanNetV2 and Matterport3D. †
-          denotes results from origin paper based on Lseg.
-				<sup>†</sup>denotes results from origin paper based on Lseg.
+          Table 1. Comparison of state-of-the-art methods on LLaVA-OneVision across video benchmarks. The best performance among those
+          with similar retention ratios Ratio is highlighted in bold, while the second best will be denoted as underlined.
 				<!-- <sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0). -->
         </p>
         </div>
         <hr>
         <div class="teaser">
-          <img src="./static/images/cross_validation_results.png" width="500" height="250">
+          <img src="./static/images/AOT_LLaVAOneVideo7B.png" width="500" height="250">
         </div>
         <div class="content has-text-justified">
           <p>
-            Cross-dataset evaluation. We evaluate the cross-dataset
-            generalization capability of CUA-O3D. We perform this 
-            experiment when training on ScanNetV2 and evaluating on Matterport3D
-            (ScanNetV2 → Matterport3D), and vice versa.
+            Table 2. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
+            highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness.
           </p>
         </div>
         <hr>
         <div class="teaser">
-          <img src="./static/images/cross_eval_matterport_results.png" width="1200" height="400">
+          <img src="./static/images/AOT_LLaVAOneVision7B_Dync.png" width="1200" height="400">
         </div>
         <div class="content has-text-justified">
           <p>
-            Comparison on cross-dataset generalization. Both CUA-O3D and OpenScene are trained on ScanNet, and zero-shot tested on
-            the Matterport3D dataset. ‡ denotes the pure 3D results obtained from the official released model. K = 21 is derived from the original
-            Matterport3D benchmark, while K = 40, 80, 160, is K most common categories from the NYU label set provided in the benchmark.
+            Table 3. Comparison of state-of-the-art methods on LLaVA-OneVision across video benchmarks. The best performance among those
+            with similar retention ratios Ratio is highlighted in bold, while the second best will be denoted as underlined. AOT w Dyn denotes we
+            apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
           </p>
         </div>
         <hr>
         <div class="teaser">
-          <img src="./static/images/linear_probing_seg_results.png" width="1000" height="1000">
+          <img src="./static/images/AOT_LLaVAOneVideo7B_Dync.png" width="1000" height="1000">
         </div>
         <div class="content has-text-justified">
           <p>
-            Experimental results on ScanNetV2 and Matterport in
-            terms of val on linear probing evaluation. Upperbound-full sup.
-            denotes the fully-supervised upperbounding results while Baseline
-            init. means initialize the model from our baseline model and then
-            perform linear probing evaluation.
+            Table 4. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
+            highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness. AOT w Dyn denotes we
+            apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
           </p>
         </div>
       </div>
@@ -344,106 +334,29 @@
           <div class="chat-history">
             <article class="media">
               <figure class="active">
-                <img src="./static/visualization/cluster_vis.png">
-                <figcaption style="font-size: 23px;"><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
-                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
-                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
-              </figure>
-              <!-- <figure>
-                <img src="./static/visualization/zero_shot_seg_vis.png">
-                <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
-                  superior performance over the OpenScene, which is regarded as
-                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
-              </figure> -->
-              <!-- <figure class="active">
-                <img src="./static/visualization/cluster_vis_scannet.png">
-                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
-                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
-                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+                <img src="./static/visualization/AOT_demo01.png">
+                <figcaption style="font-size: 23px;"><sup> Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
+                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
               </figure>
               <figure class="active">
-                <img src="./static/visualization/cluster_vis_matterport.png">
-                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
-                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
-                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
-              </figure> -->
-              <figure>
-                <img src="./static/visualization/zero_shot_seg_vis_scannet.png">
-                <figcaption style="font-size: 23px;"><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
-                  superior performance over the OpenScene, which is regarded as
-                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+                <img src="./static/visualization/AOT_demo02.png">
+                <figcaption style="font-size: 23px;"><sup> Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
+                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
               </figure>
-              <figure>
-                <img src="./static/visualization/zero_shot_seg_vis_matterport.png">
-                <figcaption style="font-size: 23px;"><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
-                  superior performance over the OpenScene, which is regarded as
-                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              <figure class="active">
+                <img src="./static/visualization/AOT_demo03.png">
+                <figcaption style="font-size: 23px;"><sup> Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
+                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
               </figure>
-              <!-- <figure>
-                <img src="./static/visualization/codalm3.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              <figure class="active">
+                <img src="./static/visualization/AOT_demo04.png">
+                <figcaption style="font-size: 23px;"><sup> Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
+                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
               </figure>
-              <figure>
-                <img src="./static/visualization/maplm1.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/drivelm1.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/drivelm2.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/omnidrive1.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/omnidrive2.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/nuinstruct1.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/nuinstruct2.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/nuinstruct3.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/nuinstruct4.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/bddx1.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure>
-              <figure>
-                <img src="./static/visualization/bddx2.png">
-                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
-              </figure> -->
-
-              <!-- <img src="./static/visualization/codalm1.png" class="active">
-              <img src="./static/visualization/codalm2.png">
-              <img src="./static/visualization/codalm3.png">
-							<img src="./static/visualization/maplm1.png">
-							<img src="./static/visualization/drivelm1.png">
-							<img src="./static/visualization/drivelm2.png">
-							<img src="./static/visualization/lingoqa1.png">
-							<img src="./static/visualization/lingoqa2.png">
-							<img src="./static/visualization/omnidrive1.png">
-							<img src="./static/visualization/omnidrive2.png">
-							<img src="./static/visualization/nuinstruct1.png">
-							<img src="./static/visualization/nuinstruct2.png">
-							<img src="./static/visualization/nuinstruct3.png">
-							<img src="./static/visualization/nuinstruct4.png">
-							<img src="./static/visualization/bddx1.png">
-							<img src="./static/visualization/bddx2.png"> -->
 						</article>
             <!-- Add your chat messages here -->
           </div>
