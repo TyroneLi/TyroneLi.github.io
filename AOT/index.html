@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models">
+  <meta name="keywords" content="Token Reduction, Token Compression, Token Pruning, Video LLM, Video Large Language Model, Optimal Transport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/academicons.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icons/emova.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://kit.fontawesome.com/d3915a16e2.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+</head>
+
+	<!-- <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history img {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history img.active {
+			display: block;
+		}
+	</style> -->
+  	
+  <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history figure {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history figure.active {
+			display: block;
+		}
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+    
+	</style>
+  
+<body>
+
+
+  
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><b>AOT:</b>  </h1>
+          <h3 class="title is-3 publication-title"> Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models </h3>
+          <!-- <h2 class="title is-3 publication-title"> with Vivid Emotions   </h2> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://tyroneli.github.io/">Jinlong Li</a><sup>1,†</sup>,</span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Liyuan_Jiang1">Liyuan Jiang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://zchoi.github.io/">Haonan Zhang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.co.uk/citations?user=stFCYOAAAAAJ&hl=en">Nicu Sebe</a><sup>1</sup>.</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Trento,</span>
+            <span class="author-block"><sup>2</sup>Tsinghua University,</span>
+            <span class="author-block"><sup>3</sup>University of Electronic Science and Technology of China.</span>
+            <br>
+          </div>
+          <!-- <div class="is-size-6 publication-authors">
+            <span class="author-block">(<sup>*</sup>Equal contribution.
+            <sup><span>&#8224;</span></sup>Corresponding authors.
+            )</span>
+          </div> -->
+
+          <h2 align="center"><strong><span style="color: red; font-size: 24px;">CVPR 2025</span></strong></h2>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Arxiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2503.16707"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Arxiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/TyroneLi/AOT"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="margin-top: -100px;">
+  <!-- <div class="container pt-5 mt-0 shadow p-5 mb-0 bg-white rounded" style="width: 80%;"> -->
+  <div class="container" style="width: 80%;">
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
+        <div class="teaser">
+          <img src="./static/images/overview_new.png"  width="800" height="800">
+        </div>
+        <p><br/></p>  
+        <div class="content has-text-justified">
+          <p>
+            Top is feature distribution analysis of different 2d 
+            projected feature embeddings from various foundation models (Lseg,
+            DINOv2 and Stable Diffusion), enumerating on the overall ScanNetV2 
+            train set and counting the frequency of all point features
+            belonging to each 2D model within each bin interval. Bottom is
+            the sample utilizing K-Means to cluster projected 3D features into
+            specified clusters to make segmentation comparisons. Different
+            foundation models illustrate heterogeneous yet complementary results.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  </div>
+</section>
+
+<section class="section" style="background-color: #f1f1f1;">
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered" style="width: 65%; margin: 0 auto;">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The lack of a large-scale 3D-text corpus has led recent
+            works to distill open-vocabulary knowledge from vision-language models (VLMs). 
+            However, these methods typically rely on a single VLM to align the feature spaces of
+            3D models within a common language space, which limits
+            the potential of 3D models to leverage the diverse spatial
+            and semantic capabilities encapsulated in various foundation
+            models. In this paper, we propose Cross-modal and
+            Uncertainty-aware Agglomeration for Open-vocabulary 3D
+            Scene Understanding dubbed CUA-O3D, the first model to
+            integrate multiple foundation models—such as CLIP, DINOv2, 
+            and Stable Diffusion—into 3D scene understanding.
+            We further introduce a deterministic uncertainty estimation 
+            to adaptively distill and harmonize the heterogeneous
+            2D feature embeddings from these models. Our method
+            addresses two key challenges: (1) incorporating semantic 
+            priors from VLMs alongside the geometric knowledge
+            of spatially-aware vision foundation models, and (2) using a 
+            novel deterministic uncertainty estimation to capture
+            model-specific uncertainties across diverse semantic and
+            geometric sensitivities, helping to reconcile heterogeneous
+            representations during training. Extensive experiments on
+            ScanNetV2 and Matterport3D demonstrate that our method
+            not only advances open-vocabulary segmentation but also
+            achieves robust cross-domain alignment and competitive
+            spatial perception capabilities. 
+          </p> 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  <!-- </div> -->
+</section>
+
+
+<section class="section">
+  <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-3">Overview of CUA-O3D</h2>
+        <div class="teaser">
+          <img src="./static/images/method.png"  width="1100" height="1100">
+        </div>
+        <p><br/></p>  
+        <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
+          <p>
+            We first utilize Lseg, DINOv2 and Stable Diffusion model to extract multi-view posed image embeddings
+            and then use multi-view 3D projection to obtain the projected 3D features \( F^{2D}_i \) to supervise 
+            the 3D model training. Three MLP layers are established to map with each 2D model 
+            supervisions independently, while a specific noisy scalar prediction \( \sigma_i \) through a deterministic
+            uncertainty estimation will be learned and adopted to adaptively weight the corresponding distillation loss \( L \).
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section" >
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+        <div class="columns is-centered has-text-centered" style="width: 50%; margin: 0 auto;">
+          <div class="column is-five-fifths">
+            <h2 class="title is-3">General Performance & Generalization Ability</h2>
+        <div class="teaser">
+          <img src="./static/images/zero_shot_seg_results.png" width="800" height="1000">
+        </div>
+        <div class="content has-text-justified">
+        <p>
+          Open-vocabulary 3D semantic segmentation results. We
+          compare our CUA-O3D with recent fully supervised (Fully-sup.)
+          and zero-shot (Zero-shot) baselines. Our method demonstrates
+          competitive performance on both ScanNetV2 and Matterport3D. †
+          denotes results from origin paper based on Lseg.
+				<sup>†</sup>denotes results from origin paper based on Lseg.
+				<!-- <sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0). -->
+        </p>
+        </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/cross_validation_results.png" width="500" height="250">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Cross-dataset evaluation. We evaluate the cross-dataset
+            generalization capability of CUA-O3D. We perform this 
+            experiment when training on ScanNetV2 and evaluating on Matterport3D
+            (ScanNetV2 → Matterport3D), and vice versa.
+          </p>
+        </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/cross_eval_matterport_results.png" width="1200" height="400">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Comparison on cross-dataset generalization. Both CUA-O3D and OpenScene are trained on ScanNet, and zero-shot tested on
+            the Matterport3D dataset. ‡ denotes the pure 3D results obtained from the official released model. K = 21 is derived from the original
+            Matterport3D benchmark, while K = 40, 80, 160, is K most common categories from the NYU label set provided in the benchmark.
+          </p>
+        </div>
+        <hr>
+        <div class="teaser">
+          <img src="./static/images/linear_probing_seg_results.png" width="1000" height="1000">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Experimental results on ScanNetV2 and Matterport in
+            terms of val on linear probing evaluation. Upperbound-full sup.
+            denotes the fully-supervised upperbounding results while Baseline
+            init. means initialize the model from our baseline model and then
+            perform linear probing evaluation.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Visualizations</h2>
+    </div>
+  </div>
+  <div class="container mt-0">
+    <div class="form-row" style="justify-content: center;">
+      <div class="form-group col-md-1">
+        <!-- <div class="col-md-0" style="width: 100%"><label>&nbsp;</label></div> -->
+        <div class="btn-group" role="group" aria-label="Left and Right Controller"
+          style="width: 100%;align-items: flex-end;justify-content: center;flex-direction: row;display: flex;">
+          <button type="button" class="form-control btn btn-primary" id="prev-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_left</i></button>
+          <button type="button" class="form-control btn btn-primary" id="next-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_right</i></button>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <div class="card mb-4" style="width: 100%; display: flex; align-items: center;">
+        <div class="card-body" id="selected-question" style="display: flex; height: 100vh;">
+          <div class="chat-history">
+            <article class="media">
+              <figure class="active">
+                <img src="./static/visualization/cluster_vis.png">
+                <figcaption style="font-size: 23px;"><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
+                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+              </figure>
+              <!-- <figure>
+                <img src="./static/visualization/zero_shot_seg_vis.png">
+                <figcaption><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
+                  superior performance over the OpenScene, which is regarded as
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              </figure> -->
+              <!-- <figure class="active">
+                <img src="./static/visualization/cluster_vis_scannet.png">
+                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
+                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+              </figure>
+              <figure class="active">
+                <img src="./static/visualization/cluster_vis_matterport.png">
+                <figcaption><sup> Left side: K_Means is tapped to cluster the projected 3D feature embeddings based on Lseg. DINOv2, Stable Diffusion and our
+                  final distilled feauture predicted by the 3D model. Right side: UMAP is applied to project high-dimension feature into low-dimension
+                  one to visualize the structural characteristics. White rectangle highlights the apparent heterogeneous yet complementary results.</sup></figcaption>
+              </figure> -->
+              <figure>
+                <img src="./static/visualization/zero_shot_seg_vis_scannet.png">
+                <figcaption style="font-size: 23px;"><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
+                  superior performance over the OpenScene, which is regarded as
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/zero_shot_seg_vis_matterport.png">
+                <figcaption style="font-size: 23px;"><sup> Open-vocabulary semantic segmentation comparisons in terms of ScanNetV2 and Matterport. Our approach displays
+                  superior performance over the OpenScene, which is regarded as
+                  our baseline. Best view zoom in and out. <span style="color: red;">red</span> denotes the significant improvements.</sup></figcaption>
+              </figure>
+              <!-- <figure>
+                <img src="./static/visualization/codalm3.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/maplm1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/drivelm1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/drivelm2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/omnidrive1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/omnidrive2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct3.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/nuinstruct4.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/bddx1.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure>
+              <figure>
+                <img src="./static/visualization/bddx2.png">
+                <figcaption><sup> Key information is highlighted in <span style="color: green;">green</span>, while errors are marked in <span style="color: red;">red</span>.</sup></figcaption>
+              </figure> -->
+
+              <!-- <img src="./static/visualization/codalm1.png" class="active">
+              <img src="./static/visualization/codalm2.png">
+              <img src="./static/visualization/codalm3.png">
+							<img src="./static/visualization/maplm1.png">
+							<img src="./static/visualization/drivelm1.png">
+							<img src="./static/visualization/drivelm2.png">
+							<img src="./static/visualization/lingoqa1.png">
+							<img src="./static/visualization/lingoqa2.png">
+							<img src="./static/visualization/omnidrive1.png">
+							<img src="./static/visualization/omnidrive2.png">
+							<img src="./static/visualization/nuinstruct1.png">
+							<img src="./static/visualization/nuinstruct2.png">
+							<img src="./static/visualization/nuinstruct3.png">
+							<img src="./static/visualization/nuinstruct4.png">
+							<img src="./static/visualization/bddx1.png">
+							<img src="./static/visualization/bddx2.png"> -->
+						</article>
+            <!-- Add your chat messages here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" >
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre>
+      <code>
+        @inproceedings{li2025cross,
+          title={Cross-modal and uncertainty-aware agglomeration for open-vocabulary 3d scene understanding},
+          author={Li, Jinlong and Saltori, Cristiano and Poiesi, Fabio and Sebe, Nicu},
+          booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+          pages={19390--19400},
+          year={2025}
+        }
+      </code>
+    </pre>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const images = document.querySelectorAll('.chat-history figure');
+    let currentIndex = 0;
+
+    document.getElementById('prev-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+      images[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('next-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+      images[currentIndex].classList.add('active');
+    });
+  });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<div align="center">
+  <a href="https://info.flagcounter.com/4hf5">
+    <img src="https://s01.flagcounter.com/mini/4hf5/bg_FFFFFF/txt_000000/border_CCCCCC/flags_0/" alt="Flag Counter" border="0"></a>
+</div>
+
+<footer class="footer" style="background-color: #f1f1f1;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2503.16707">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/TyroneLi/AOT" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <center>The website template was adapted from <a href="https://nerfies.github.io/">Nerfies</a>.<br/>
+          @ CUA_O3D Team
+          </center>
+        <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
