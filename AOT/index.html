@@ -383,7 +383,7 @@
   </div>
 </section>
 
-<script>
+<!-- <script>
   document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll('.chat-history figure');
     let currentIndex = 0;
@@ -398,6 +398,28 @@
       images[currentIndex].classList.remove('active');
       currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
       images[currentIndex].classList.add('active');
+    });
+  });
+</script> -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.chat-history figure');
+    let currentIndex = 0;
+
+    // 初始化：只显示第一张
+    slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+
+    document.getElementById('prev-question').addEventListener('click', function () {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+      slides[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('next-question').addEventListener('click', function () {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+      slides[currentIndex].classList.add('active');
     });
   });
 </script>
