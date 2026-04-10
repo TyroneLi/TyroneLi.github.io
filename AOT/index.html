@@ -12,8 +12,7 @@
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
-  
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -39,116 +38,293 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 
-
-</head>
-
-	<!-- <style>
-		.chat-history {
-			flex-grow: 1;
-			overflow-y: auto;
-			/* overflow-x: hidden; */
-			padding: 5px;
-			border-bottom: 1px solid #ccc;
-			margin-bottom: 10px;
-			text-align: left;
-		}
-
-		.chat-history img {
-			display: none;
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-		.chat-history img.active {
-			display: block;
-		}
-	</style> -->
-  	
   <style>
-		.chat-history {
-			flex-grow: 1;
-			overflow-y: auto;
-			/* overflow-x: hidden; */
-			padding: 5px;
-			border-bottom: 1px solid #ccc;
-			margin-bottom: 10px;
-			text-align: left;
-		}
-
-		.chat-history figure {
-			display: none;
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-		.chat-history figure.active {
-			display: block;
-		}
-
     hr {
       border: 0;
       height: 1px;
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0)
+      );
     }
-    
-	</style>
-  
+
+    /* ===== Visualization section redesigned ===== */
+    .viz-section {
+      background: #f3f3f3;
+      padding-top: 10px;
+      padding-bottom: 40px;
+    }
+
+    .viz-title {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .viz-card {
+      width: 92%;
+      max-width: 1340px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+      padding: 26px 28px 26px;
+    }
+
+    .viz-card-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .viz-card-header h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .viz-card-header p {
+      max-width: 1120px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      color: #555;
+      line-height: 1.55;
+    }
+
+    .viz-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 620px;
+      overflow: hidden;
+    }
+
+    .chat-history {
+      width: 100%;
+      position: relative;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: none;
+    }
+
+    .chat-history article.media {
+      display: block;
+      margin: 0;
+    }
+
+    .chat-history figure {
+      display: none;
+      width: 100%;
+      margin: 0;
+      text-align: center;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .chat-history figure.active {
+      display: block;
+    }
+
+    .chat-history img {
+      width: 100%;
+      max-height: 620px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .chat-history figcaption {
+      margin-top: 14px;
+      padding: 0 24px;
+      text-align: center;
+      color: #666;
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .carousel-side-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62px;
+      height: 98px;
+      border: none;
+      background: rgba(180, 180, 180, 0.45);
+      color: #000;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .carousel-side-btn:hover {
+      background: rgba(150, 150, 150, 0.62);
+    }
+
+    .carousel-side-btn.prev {
+      left: -4px;
+    }
+
+    .carousel-side-btn.next {
+      right: -4px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .carousel-dots .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #cfcfcf;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+
+    .carousel-dots .dot.active {
+      background: #8f8f8f;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.25; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 1024px) {
+      .viz-title {
+        font-size: 2.4rem;
+      }
+
+      .viz-card-header h3 {
+        font-size: 1.5rem;
+      }
+
+      .viz-card-header p {
+        font-size: 1rem;
+      }
+
+      .viz-carousel {
+        min-height: 500px;
+      }
+
+      .chat-history img {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .viz-card {
+        width: 96%;
+        padding: 18px 14px 20px;
+      }
+
+      .viz-title {
+        font-size: 2rem;
+      }
+
+      .viz-card-header h3 {
+        font-size: 1.2rem;
+      }
+
+      .viz-card-header p {
+        font-size: 0.95rem;
+      }
+
+      .viz-carousel {
+        min-height: 340px;
+      }
+
+      .chat-history img {
+        max-height: 340px;
+      }
+
+      .chat-history figcaption {
+        padding: 0 4px;
+        font-size: 0.85rem;
+      }
+
+      .carousel-side-btn {
+        width: 46px;
+        height: 78px;
+        font-size: 32px;
+      }
+    }
+  </style>
+
+</head>
+
 <body>
-
-
-  
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <!-- <h1 class="title is-1 publication-title"><b>AOT:</b>  </h1> -->
-          <h2 class="title is-1 publication-title"><b>AOT:</b>  </h2>
-          <h3 class="title is-3 publication-title"> Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models </h3>
-          <!-- <h2 class="title is-3 publication-title"> with Vivid Emotions   </h2> -->
+          <h2 class="title is-1 publication-title"><b>AOT:</b></h2>
+          <h3 class="title is-3 publication-title">Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models</h3>
+
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://tyroneli.github.io/">Jinlong Li</a><sup>1,†</sup>,</span>
+              <a href="https://tyroneli.github.io/">Jinlong Li</a><sup>1,†</sup>,
+            </span>
             <span class="author-block">
-              <a href="https://openreview.net/profile?id=~Liyuan_Jiang1">Liyuan Jiang</a><sup>2</sup>,</span>
+              <a href="https://openreview.net/profile?id=~Liyuan_Jiang1">Liyuan Jiang</a><sup>2</sup>,
+            </span>
             <span class="author-block">
-              <a href="https://zchoi.github.io/">Haonan Zhang</a><sup>3</sup>,</span>
+              <a href="https://zchoi.github.io/">Haonan Zhang</a><sup>3</sup>,
+            </span>
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=stFCYOAAAAAJ&hl=en">Nicu Sebe</a><sup>1</sup>.</span>
+              <a href="https://scholar.google.com/citations?user=stFCYOAAAAAJ&hl=en">Nicu Sebe</a><sup>1</sup>.
+            </span>
           </div>
+
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>University of Trento,</span>
             <span class="author-block"><sup>2</sup>Tsinghua University,</span>
             <span class="author-block"><sup>3</sup>University of Electronic Science and Technology of China.</span>
             <br>
           </div>
-          <!-- <div class="is-size-6 publication-authors">
-            <span class="author-block">(<sup>*</sup>Equal contribution.
-            <sup><span>&#8224;</span></sup>Corresponding authors.
-            )</span>
-          </div> -->
 
           <h2 align="center"><strong><span style="color: red; font-size: 24px;">CVPR 2026</span></strong></h2>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- Arxiv Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2603.01400"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="ai ai-arxiv"></i>
+                    <i class="ai ai-arxiv"></i>
                   </span>
                   <span>Arxiv</span>
                 </a>
               </span>
-              <!-- Code Link. -->
+
               <span class="link-block">
                 <a href="https://github.com/TyroneLi/AOT"
-                    class="external-link button is-normal is-rounded is-dark">
+                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="fab fa-github"></i>
+                    <i class="fab fa-github"></i>
                   </span>
                   <span>Code</span>
                 </a>
@@ -162,21 +338,18 @@
 </section>
 
 <section class="section" style="margin-top: -100px;">
-  <!-- <div class="container pt-5 mt-0 shadow p-5 mb-0 bg-white rounded" style="width: 80%;"> -->
   <div class="container" style="width: 90%;">
-    <!-- conflicts. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-five-fifths">
-        <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
         <div class="teaser">
-          <img src="./static/images/AOT_motivation.png"  width="800" height="800">
+          <img src="./static/images/AOT_motivation.png" width="800" height="800">
         </div>
-        <p><br/></p>  
+        <p><br/></p>
         <div class="content has-text-justified">
           <p>
-            The top is the essential differences compared with common token reduction methods, 
-            instead of simply removing unimportant or merging very similar tokens, ours utilizes 
-            a global optimization strategy to further exploit and aggregate necessary semantic 
+            The top is the essential differences compared with common token reduction methods,
+            instead of simply removing unimportant or merging very similar tokens, ours utilizes
+            a global optimization strategy to further exploit and aggregate necessary semantic
             and context from these onto the remaining tokens. Bottom
             is our proposed pipeline to adopt Optimal Transport to aggregate
             information within intra- and inter-frame levels for video tokens.
@@ -184,262 +357,230 @@
         </div>
       </div>
     </div>
-    <!--/ safety persists. -->
   </div>
 </section>
 
 <section class="section" style="background-color: #f1f1f1;">
-    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered" style="width: 65%; margin: 0 auto;">
-      <div class="column is-five-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Video Large Language Models (VLLMs) demonstrate
-            strong video understanding but suffer from inefficiency due
-            to redundant visual tokens. Existing pruning primary targets 
-            intra-frame spatial redundancy or prunes inside the
-            LLM with shallow-layer overhead, yielding suboptimal spatiotemporal 
-            reduction and underutilizing long-context compressibility. 
-            All of them often discard subtle yet informative
-            context from merged or pruned tokens. In this paper, we
-            propose a new perspective that elaborates token Anchors
-            within intra-frame and inter-frame to comprehensively aggregate 
-            the informative contexts via local-global Optimal
-            Transport (AOT). Specifically, we first establish local- and
-            global-aware token anchors within each frame under the attention 
-            guidance, which then optimal transport aggregates
-            the informative contexts from pruned tokens, constructing
-            intra-frame token anchors. Then, building on the temporal frame 
-            clips, the first frame within each clip will be considered as the 
-            keyframe anchors to ensemble similar information from 
-            consecutive frames through optimal transport,
-            while keeping distinct tokens to represent temporal dynamics, 
-            leading to efficient token reduction in a training-free
-            manner. Extensive evaluations show that our proposed AOT
-            obtains competitive performances across various short- and
-            long-video benchmarks on leading video LLMs, obtaining
-            substantial computational efficiency while preserving temporal and visual fidelity.
-          </p> 
-          </p>
-        </div>
+  <div class="columns is-centered has-text-centered" style="width: 65%; margin: 0 auto;">
+    <div class="column is-five-fifths">
+      <h2 class="title is-3">Abstract</h2>
+      <div class="content has-text-justified">
+        <p>
+          Video Large Language Models (VLLMs) demonstrate
+          strong video understanding but suffer from inefficiency due
+          to redundant visual tokens. Existing pruning primary targets
+          intra-frame spatial redundancy or prunes inside the
+          LLM with shallow-layer overhead, yielding suboptimal spatiotemporal
+          reduction and underutilizing long-context compressibility.
+          All of them often discard subtle yet informative
+          context from merged or pruned tokens. In this paper, we
+          propose a new perspective that elaborates token Anchors
+          within intra-frame and inter-frame to comprehensively aggregate
+          the informative contexts via local-global Optimal
+          Transport (AOT). Specifically, we first establish local- and
+          global-aware token anchors within each frame under the attention
+          guidance, which then optimal transport aggregates
+          the informative contexts from pruned tokens, constructing
+          intra-frame token anchors. Then, building on the temporal frame
+          clips, the first frame within each clip will be considered as the
+          keyframe anchors to ensemble similar information from
+          consecutive frames through optimal transport,
+          while keeping distinct tokens to represent temporal dynamics,
+          leading to efficient token reduction in a training-free
+          manner. Extensive evaluations show that our proposed AOT
+          obtains competitive performances across various short- and
+          long-video benchmarks on leading video LLMs, obtaining
+          substantial computational efficiency while preserving temporal and visual fidelity.
+        </p>
       </div>
     </div>
-    <!--/ Abstract. -->
-  <!-- </div> -->
+  </div>
 </section>
-
 
 <section class="section">
-  <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
-    <!-- conflicts. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-five-fifths">
-        <h2 class="title is-3">Overview of CUA-O3D</h2>
-        <div class="teaser">
-          <img src="./static/images/AOT_pipeline.png"  width="1100" height="1100">
-        </div>
-        <p><br/></p>  
-        <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
-          <p>
-            Overall pipeline of our AOT. Our method compresses tokens of video LLMs across spatiotemporal through optimal transport,
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-five-fifths">
+      <h2 class="title is-3">Overview of CUA-O3D</h2>
+      <div class="teaser">
+        <img src="./static/images/AOT_pipeline.png" width="1100" height="1100">
+      </div>
+      <p><br/></p>
+      <div class="content has-text-justified" style="width: 65%; margin: 0 auto;">
+        <p>
+          Overall pipeline of our AOT. Our method compresses tokens of video LLMs across spatiotemporal through optimal transport,
           first establishing token anchors within each frame to cover semantically important and spatially diverse token candidates, then utilizing
           optimal transport to aggregate the necessary informative cues within Intra-Frame at phase I, and finally shifting the optimization strategy
-          into temporal within Inter-Frame at phase II. The proposed AOT preserves both temporal and visual integrity by utilizing efficient 
+          into temporal within Inter-Frame at phase II. The proposed AOT preserves both temporal and visual integrity by utilizing efficient
           SinkhornKnopp Iteration to solve the optimal transport plan assignment.
-          </p>
-        </div>
+        </p>
       </div>
     </div>
-    <!--/ safety persists. -->
-  <!-- </div> -->
+  </div>
 </section>
+
 <hr>
-<section class="section" >
-    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
-        <div class="columns is-centered has-text-centered" style="width: 80%; margin: 0 auto;">
-          <div class="column is-five-fifths">
-            <h2 class="title is-3">Video Performance & Reduction Ability</h2>
-        <div class="teaser">
-          <img src="./static/images/AOT_LLaVAOneVision7B.png" width="1600" height="1000">
-        </div>
-        <div class="content has-text-justified">
+
+<section class="section">
+  <div class="columns is-centered has-text-centered" style="width: 80%; margin: 0 auto;">
+    <div class="column is-five-fifths">
+      <h2 class="title is-3">Video Performance & Reduction Ability</h2>
+
+      <div class="teaser">
+        <img src="./static/images/AOT_LLaVAOneVision7B.png" width="1600" height="1000">
+      </div>
+      <div class="content has-text-justified">
         <p>
           Table 1. Comparison of state-of-the-art methods on LLaVA-OneVision across video benchmarks. The best performance among those
           with similar retention ratios Ratio is highlighted in bold, while the second best will be denoted as underlined.
-				<!-- <sup>∗</sup> indicates max((Accuracy+MAP+BLEU-MAE)/4, 0). -->
         </p>
-        </div>
-        <hr>
-        <div class="teaser">
-          <img src="./static/images/AOT_LLaVAVideo7B.png" width="1400" height="1100">
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Table 2. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
-            highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness.
-          </p>
-        </div>
-        <hr>
-        <div class="teaser">
-          <img src="./static/images/AOT_LLaVAOneVision7B_Dync.png" width="1400" height="1100">
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Table 3. Comparison of state-of-the-art methods on LLaVA-OneVision across video benchmarks. The best performance among those
-            with similar retention ratios Ratio is highlighted in bold, while the second best will be denoted as underlined. AOT w Dyn denotes we
-            apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
-          </p>
-        </div>
-        <hr>
-        <div class="teaser">
-          <img src="./static/images/AOT_LLaVAVideo7B_Dync.png" width="1400" height="1100">
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Table 4. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
-            highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness. AOT w Dyn denotes we
-            apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
-          </p>
-        </div>
       </div>
-    </div>
-  <!-- </div> -->
-</section>
-<hr>
-<section class="section">
-  <div class="columns is-centered has-text-centered">
-    <div class="column is-six-fifths">
-      <h2 class="title is-3">Visualizations</h2>
-    </div>
-  </div>
-  <div class="container mt-0">
-    <div class="form-row" style="justify-content: center;">
-      <div class="form-group col-md-1">
-        <!-- <div class="col-md-0" style="width: 100%"><label>&nbsp;</label></div> -->
-        <div class="btn-group" role="group" aria-label="Left and Right Controller"
-          style="width: 100%;align-items: flex-end;justify-content: center;flex-direction: row;display: flex;">
-          <button type="button" class="form-control btn btn-primary" id="prev-question" style="background-color: black; color: white; border-color: black;"><i
-              class="material-icons">keyboard_arrow_left</i></button>
-          <button type="button" class="form-control btn btn-primary" id="next-question" style="background-color: black; color: white; border-color: black;"><i
-              class="material-icons">keyboard_arrow_right</i></button>
-  
-        </div>
+
+      <hr>
+
+      <div class="teaser">
+        <img src="./static/images/AOT_LLaVAVideo7B.png" width="1400" height="1100">
       </div>
-    </div>
-  
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <div class="card mb-4" style="width: 100%; display: flex; align-items: center;">
-        <div class="card-body" id="selected-question" style="display: flex; height: 50vh;">
-          <div class="chat-history">
-            <article class="media">
-              <figure class="active">
-                <img src="./static/visualization/AOT_demo01.png">
-                <figcaption><sup>Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
-                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
-                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
-              </figure>
-              <figure class="active">
-                <img src="./static/visualization/AOT_demo02.png">
-                <figcaption><sup>Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
-                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
-                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
-              </figure>
-              <figure class="active">
-                <img src="./static/visualization/AOT_demo03.png">
-                <figcaption><sup>Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
-                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
-                  sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
-              </figure>
-              <figure class="active">
-                <img src="./static/visualization/AOT_demo04.png">
-                <figcaption><sup>Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
-                optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM precess better. The top is the original
-                sampled frames while the bottom is the corresponding tokens visualization.</sup></figcaption>
-              </figure>
-						</article>
-            <!-- Add your chat messages here -->
-          </div>
-        </div>
+      <div class="content has-text-justified">
+        <p>
+          Table 2. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
+          highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness.
+        </p>
+      </div>
+
+      <hr>
+
+      <div class="teaser">
+        <img src="./static/images/AOT_LLaVAOneVision7B_Dync.png" width="1400" height="1100">
+      </div>
+      <div class="content has-text-justified">
+        <p>
+          Table 3. Comparison of state-of-the-art methods on LLaVA-OneVision across video benchmarks. The best performance among those
+          with similar retention ratios Ratio is highlighted in bold, while the second best will be denoted as underlined. AOT w Dyn denotes we
+          apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
+        </p>
+      </div>
+
+      <hr>
+
+      <div class="teaser">
+        <img src="./static/images/AOT_LLaVAVideo7B_Dync.png" width="1400" height="1100">
+      </div>
+      <div class="content has-text-justified">
+        <p>
+          Table 4. Comparison of state-of-the-art methods on LLaVA-Video across video benchmarks. The best performance among those is
+          highlighted in bold, while the second best will be denoted as underlined, demonstrating consistent effectiveness. AOT w Dyn denotes we
+          apply dynamic temporal segmentation to obtain adaptive frames within each clip, following FastVID.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="BibTeX" >
+<hr>
+
+<section class="section viz-section">
+  <div class="container">
+    <h2 class="viz-title">Visualizations</h2>
+
+    <div class="viz-card">
+      <div class="viz-card-header">
+        <h3>Qualitative visualizations of Local-Global token anchors</h3>
+        <p>
+          Our method leverages optimal transport to aggregate informative contexts from unselected tokens,
+          helping the remaining tokens better preserve semantic and temporal cues across consecutive video frames.
+        </p>
+      </div>
+
+      <div class="viz-carousel">
+        <button type="button" class="carousel-side-btn prev" id="prev-question" aria-label="Previous slide">
+          &#10094;
+        </button>
+
+        <div class="chat-history">
+          <article class="media">
+            <figure class="active">
+              <img src="./static/visualization/AOT_demo01.png" alt="AOT demo 1">
+              <figcaption>
+                <sup>
+                  Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM process better.
+                  The top is the original sampled frames while the bottom is the corresponding tokens visualization.
+                </sup>
+              </figcaption>
+            </figure>
+
+            <figure>
+              <img src="./static/visualization/AOT_demo02.png" alt="AOT demo 2">
+              <figcaption>
+                <sup>
+                  Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM process better.
+                  The top is the original sampled frames while the bottom is the corresponding tokens visualization.
+                </sup>
+              </figcaption>
+            </figure>
+
+            <figure>
+              <img src="./static/visualization/AOT_demo03.png" alt="AOT demo 3">
+              <figcaption>
+                <sup>
+                  Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM process better.
+                  The top is the original sampled frames while the bottom is the corresponding tokens visualization.
+                </sup>
+              </figcaption>
+            </figure>
+
+            <figure>
+              <img src="./static/visualization/AOT_demo04.png" alt="AOT demo 4">
+              <figcaption>
+                <sup>
+                  Qualitative visualizations of our Local-Global token anchors evolution across consecutive frames on MVBench sample while
+                  optimal transport is adopted to aggregate necessary information from unselected tokens to help LLM process better.
+                  The top is the original sampled frames while the bottom is the corresponding tokens visualization.
+                </sup>
+              </figcaption>
+            </figure>
+          </article>
+        </div>
+
+        <button type="button" class="carousel-side-btn next" id="next-question" aria-label="Next slide">
+          &#10095;
+        </button>
+      </div>
+
+      <div class="carousel-dots" id="carousel-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre>
-      <code>
-        @article{li2026token,
-          title={Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models},
-          author={Li, Jinlong and Jiang, Liyuan and Zhang, Haonan and Sebe, Nicu},
-          journal={arXiv preprint arXiv:2603.01400},
-          year={2026}
-        }
-      </code>
-    </pre>
+    <pre><code>@article{li2026token,
+  title={Token Reduction via Local and Global Contexts Optimization for Efficient Video Large Language Models},
+  author={Li, Jinlong and Jiang, Liyuan and Zhang, Haonan and Sebe, Nicu},
+  journal={arXiv preprint arXiv:2603.01400},
+  year={2026}
+}</code></pre>
   </div>
 </section>
 
-<!-- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const images = document.querySelectorAll('.chat-history figure');
-    let currentIndex = 0;
-
-    document.getElementById('prev-question').addEventListener('click', function () {
-      images[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-      images[currentIndex].classList.add('active');
-    });
-
-    document.getElementById('next-question').addEventListener('click', function () {
-      images[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-      images[currentIndex].classList.add('active');
-    });
-  });
-</script> -->
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const slides = document.querySelectorAll('.chat-history figure');
-    let currentIndex = 0;
-
-    // 初始化：只显示第一张
-    slides.forEach((s, i) => s.classList.toggle('active', i === 0));
-
-    document.getElementById('prev-question').addEventListener('click', function () {
-      slides[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-      slides[currentIndex].classList.add('active');
-    });
-
-    document.getElementById('next-question').addEventListener('click', function () {
-      slides[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-      slides[currentIndex].classList.add('active');
-    });
-  });
-</script>
-
-<!-- <a href="https://info.flagcounter.com/7NOQ">
-  <img src="https://s01.flagcounter.com/count2/7NOQ/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a> -->
-
-<!-- <a href="https://info.flagcounter.com/NmQG"><img src="https://s01.flagcounter.com/map/NmQG/size_t/txt_000000/border_CCCCCC/pageviews_1/viewers_0/flags_0/" alt="Flag Counter" border="0"></a> -->
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
 <div align="center">
   <a href="https://info.flagcounter.com/NmQG">
-    <img src="https://s01.flagcounter.com/map/NmQG/size_t/txt_000000/border_CCCCCC/pageviews_1/viewers_0/flags_0/" alt="Flag Counter" border="0"></a>
+    <img src="https://s01.flagcounter.com/map/NmQG/size_t/txt_000000/border_CCCCCC/pageviews_1/viewers_0/flags_0/" alt="Flag Counter" border="0">
+  </a>
 </div>
 
 <footer class="footer" style="background-color: #f1f1f1;">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://arxiv.org/abs/2603.01400">
+      <a class="icon-link" href="https://arxiv.org/abs/2603.01400">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="https://github.com/TyroneLi/AOT" class="external-link" disabled>
@@ -449,15 +590,61 @@
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-          <center>The website template was adapted from <a href="https://nerfies.github.io/">Nerfies</a>.<br/>
-          @ AOT Team
+          <center>
+            The website template was adapted from <a href="https://nerfies.github.io/">Nerfies</a>.<br/>
+            @ AOT Team
           </center>
-        <p></p>
+          <p></p>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.chat-history figure');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    const prevBtn = document.getElementById('prev-question');
+    const nextBtn = document.getElementById('next-question');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      if (index < 0) {
+        currentIndex = slides.length - 1;
+      } else if (index >= slides.length) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentIndex);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    prevBtn.addEventListener('click', function () {
+      showSlide(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      showSlide(currentIndex + 1);
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', function () {
+        const index = parseInt(this.getAttribute('data-index'));
+        showSlide(index);
+      });
+    });
+
+    showSlide(0);
+  });
+</script>
 
 </body>
 </html>
