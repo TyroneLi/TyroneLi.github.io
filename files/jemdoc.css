@@ -503,34 +503,15 @@ div.cv_item .cv_date {
 	white-space: nowrap;
 }
 
-/* Affiliation logos under the biography */
-div.logo_strip {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
-	gap: 16px 24px;
-	margin: 1.2em 0 0.4em;
+/* Affiliation logos under the biography; each img sets its own width */
+table.affiliation_table {
+	margin: 0.6em 0;
 }
 
-div.logo_strip a:hover {
+table.affiliation_table td {
+	padding: 12px 8px;
+}
+
+table.affiliation_table a:hover {
 	border-bottom: none;
-}
-
-/* Heights differ per shape so the logos look about the same size */
-div.logo_strip img {
-	height: 64px;
-	width: auto;
-}
-
-div.logo_strip img.wordmark {
-	height: 40px;
-}
-
-div.logo_strip img.lockup {
-	height: 56px;
-}
-
-div.logo_strip img.icon {
-	height: 52px;
 }
