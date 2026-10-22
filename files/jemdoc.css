@@ -543,7 +543,6 @@ span.exp_role {
 
 span.exp_date {
 	white-space: nowrap;
-	color: #555;
 }
 
 div.exp_org {
@@ -560,5 +559,4 @@ div.exp_org img {
 div.exp_note {
 	margin-top: 6px;
 	font-size: 15px;
-	color: #666;
 }
