@@ -474,3 +474,31 @@ p.pub_author{
 p.pub_link{
 	font-size: 14px	
 }
+
+p.pub_legend {
+	font-size: 14px;
+	margin-bottom: 0.4em;
+}
+
+/* First- or co-first-author papers */
+tr.first_author {
+	background: #fff8e1;
+}
+
+/* Collapsed older news */
+details.news_more summary {
+	cursor: pointer;
+	color: rgb(0,0,255);
+	margin-left: 1em;
+}
+
+/* Education / Experience rows: title left, dates right */
+div.cv_item {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+}
+
+div.cv_item .cv_date {
+	white-space: nowrap;
+}
