@@ -503,13 +503,15 @@ div.cv_item .cv_date {
 	white-space: nowrap;
 }
 
-/* Affiliation logos under the biography; each img sets its own width */
+/* Affiliation logos under the biography; each img sets its own width.
+   The table shrinks to fit the logos and sits centred; the td padding
+   sets the gap between neighbouring logos (2 x 22px). */
 table.affiliation_table {
-	margin: 0.6em 0;
+	margin: 0.6em auto;
 }
 
 table.affiliation_table td {
-	padding: 12px 8px;
+	padding: 10px 22px;
 }
 
 table.affiliation_table a:hover {
