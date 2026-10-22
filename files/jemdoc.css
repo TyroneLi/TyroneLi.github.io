@@ -517,3 +517,48 @@ table.affiliation_table td {
 table.affiliation_table a:hover {
 	border-bottom: none;
 }
+
+/* Experience: role and dates on one line, organisation with its logo,
+   optional mentor note; thin rules between entries */
+div.exp_item {
+	padding: 14px 0;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+div.exp_item:last-child {
+	border-bottom: none;
+}
+
+div.exp_head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1em;
+}
+
+span.exp_role {
+	font-size: 17px;
+	font-weight: bold;
+}
+
+span.exp_date {
+	white-space: nowrap;
+	color: #555;
+}
+
+div.exp_org {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+div.exp_org img {
+	border-radius: 4px;
+}
+
+div.exp_note {
+	margin-top: 6px;
+	font-size: 15px;
+	color: #666;
+}
